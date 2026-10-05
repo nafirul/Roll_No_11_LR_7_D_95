@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Information</title>
+</head>
+<body>
+
+  <h1>Enter New Movie</h1>
+
+  <form action="/addmovie" method="POST">
+
+    <input type="text" name="Movie_Name" placeholder="Enter Movie Name" required>
+
+    <input type="text" name="Genre" placeholder="Enter Genre" required>
+
+    <input type="number" name="Year" placeholder="Enter Year" required>
+
+    <input type="text" name="IMDb_Rating" placeholder="Enter IMDb Rating" required>
+
+    <input type="number" name="Director_ID" placeholder="Enter Director ID" required>
+
+    <br><br>
+
+    <button type="submit">Add Movie</button>
+
+  </form>
+
+
+
+  <h1>Movie List</h1>
+
+  <div id="movie-info"></div>
+
+  <script>
+    fetch("/movie")
+      .then((res) => res.json())
+      .then((data) => {
+
+        const movieDiv = document.getElementById("movie-info");
+        movieDiv.innerHTML = "";
+
+        data.forEach((movie) => {
+
+          movieDiv.innerHTML += `
+            <div>
+              <h2>${movie.Movie_Name}</h2>
+
+              <p><strong>Genre:</strong> ${movie.Genre}</p>
+
+              <p><strong>Year:</strong> ${movie.Year}</p>
+
+              <p><strong>IMDb Rating:</strong> ${movie.IMDb_Rating}</p>
+
+              <p><strong>Director ID:</strong> ${movie.Director_ID}</p>
+
+            </div>
+          `;
+        });
+
+      })
+      
+  </script>
+
+</body>
+</html>
